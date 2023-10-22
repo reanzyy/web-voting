@@ -52,7 +52,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        abort_if(!$user, 400, 'Pengguna tidak ditemukan');
+
+        if (!$user) {
+            abort(404);
+        }
 
         return view('pages.users.edit', compact('user'));
     }
@@ -60,7 +63,10 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $user = User::find($id);
-        abort_if(!$user, 400, 'Pengguna tidak ditemukan');
+
+        if (!$user) {
+            abort(404);
+        }
 
         $request->validate([
             'name' => 'required|max:255',
@@ -96,7 +102,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        abort_if(!$user, 400, 'Pengguna tidak ditemukan');
+
+        if (!$user) {
+            abort(404);
+        }
 
         $user->delete();
 
