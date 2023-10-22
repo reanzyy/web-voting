@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('sequence');
             $table->string('chairman', 255);
             $table->string('deputy_chairman', 255);
-            $table->string('photo', 255);
+            $table->string('photo_chairman', 255);
+            $table->string('photo_deputy_chairman', 255);
             $table->timestamps();
         });
     }

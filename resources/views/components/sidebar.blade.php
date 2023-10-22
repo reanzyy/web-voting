@@ -16,8 +16,8 @@
             <li class="{{ Request::is('classrooms*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i> <span>Kelas</span></a>
             </li>
-            <li class="{{ Request::is('students') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('students') }}"><i class="fas fa-user-group"></i> <span>Pasangan Calon</span></a>
+            <li class="{{ Request::is('candidates*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('candidates') }}"><i class="fas fa-user-group"></i> <span>Kandidat</span></a>
             </li>
         </ul>
     </aside>
