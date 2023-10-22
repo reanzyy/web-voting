@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('student_id');
             $table->unsignedInteger('candidate_id');
+            $table->primary('student_id');
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('candidate_id')->references('id')->on('candidate')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
