@@ -14,7 +14,7 @@
                 <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-user"></i> <span>Pengguna</span></a>
             </li>
             <li class="{{ Request::is('classrooms*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i> <span>Siswa</span></a>
+                <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i> <span>Kelas</span></a>
             </li>
             <li class="{{ Request::is('students') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('students') }}"><i class="fas fa-user-group"></i> <span>Pasangan Calon</span></a>
