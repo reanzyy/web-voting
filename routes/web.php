@@ -57,6 +57,7 @@ Route::middleware([Authenticate::class])->group(function () {
             Route::get('/{id_classroom}/students/edit/{id_student}', 'edit')->name('edit');
             Route::put('/{id_classroom}/{id_student}', 'update')->name('update');
             Route::delete('/{id_classroom}/{id_student}', 'destroy')->name('destroy');
+            Route::put('/{id_classroom}/{id_student}/reset', 'reset')->name('reset');
         });
     });
 

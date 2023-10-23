@@ -70,7 +70,12 @@
                                                 </td>
                                                 <td class="py-2">
                                                     <div class="d-flex" style="gap: 5px">
-                                                        <a href="" class="btn btn-sm btn-primary">Reset</a>
+                                                        <button type="button"
+                                                            data-action="{{ route('classrooms.students.reset', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
+                                                            data-confirm-text="Anda yakin reset token siswa ini?"
+                                                            class="btn btn-sm btn-primary btn-reset">
+                                                            Reset
+                                                        </button>
                                                         <a href="{{ route('classrooms.students.edit', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
                                                             class="btn btn-sm btn-warning">Ubah</a>
                                                         <button type="button"
@@ -94,3 +99,38 @@
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('body').on('click', '.btn-reset', function() {
+            const title = $(this).data('confirm-title') || "Anda yakin?";
+            const text = $(this).data('confirm-text') || "Anda yakin menghapus data ini?";
+            const icon = $(this).data('confirm-icon') || "warning";
+            const action = $(this).data('action');
+
+            if (!action) {
+                return;
+            }
+
+            swal({
+                    title,
+                    text,
+                    icon,
+                    buttons: [
+                        "Batalkan",
+                        "Ya, Lakukan"
+                    ]
+                })
+                .then(function(willDelete) {
+                    if (willDelete) {
+                        const form = $(`<form action="${action}" method="POST">
+                        @csrf
+                        @method('put')
+                    </form>`);
+                        $('body').append(form);
+                        form.submit();
+                    }
+                });
+        });
+    </script>
+@endpush
