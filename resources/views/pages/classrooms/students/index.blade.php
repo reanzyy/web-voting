@@ -73,7 +73,12 @@
                                                 </td>
                                                 <td class="py-2">
                                                     <div class="d-flex" style="gap: 5px">
-                                                        <a href="" class="btn btn-sm btn-primary">Reset</a>
+                                                        <button type="button"
+                                                            data-action="{{ route('classrooms.students.reset', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
+                                                            data-confirm-text="Anda yakin reset token siswa ini?"
+                                                            class="btn btn-sm btn-primary btn-reset">
+                                                            Reset
+                                                        </button>
                                                         <a href="{{ route('classrooms.students.edit', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
                                                             class="btn btn-sm btn-warning">Ubah</a>
                                                         <button type="button"

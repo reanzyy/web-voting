@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\StudentsImport;
 use App\Models\Classroom;
+use App\Models\Vote;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -145,5 +146,23 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('classrooms.students.index', $classroom->id)->with('error', 'Terjadi kesalahan saat mengimpor data siswa.' . $e->getMessage());
         }
+    }
+
+    public function reset($id_classroom, $id_student)
+    {
+        $classroom = Classroom::find($id_classroom);
+        $student = Student::find($id_student);
+
+        if (!$classroom && !$student) {
+            abort(404);
+        }
+
+        $vote = Vote::where('student_id', $student->id)->first();
+        $vote->delete();
+
+        $student->status = 'Belum Memilih';
+        $student->save();
+
+        return redirect()->back()->withSuccess('Token berhasil direset!');
     }
 }
