@@ -26,6 +26,9 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
                         <div class="pt-4 pr-4" style="float: right;">
+                            <button class="btn btn-primary" id="ImportStudents">
+                                Import Data Siswa
+                            </button>
                             <a href="{{ route('classrooms.students.create', $classroom->id) }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Tambah Data Siswa Baru
                             </a>
@@ -35,7 +38,7 @@
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>NIS</th>
                                             <th>Nama</th>
                                             <th>Jenis Kelamin</th>
@@ -90,7 +93,47 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#ImportStudents').click(function() {
+            $('#ImportStudentsModal').remove();
+
+            var modal = `
+                <div class="modal fade" id="ImportStudentsModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Import Siswa</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('classrooms.students.import', $classroom->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="formFileSm" class="form-label">Pilih File</label>
+                                        <input class="form-control" id="formFileSm" type="file" name="import_file"
+                                            accept=".xls,.xlsx">
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <a href="{{ asset('files/Insert-Siswa.xlsx') }}">Unduh Template Excel</a>
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('body').append(modal);
+            $('#ImportStudentsModal').modal('show');
+        });
+    </script>
+@endpush

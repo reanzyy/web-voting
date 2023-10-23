@@ -20,18 +20,17 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
                         <div class="pt-4 pr-4" style="float: right;">
-                            <a href="{{ route('classrooms.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Tambah Data Kelas Baru
-                            </a>
+                            <button class="btn btn-primary" id="AddClassroom"><i class="fa fa-plus"></i> Tambah Kelas
+                                Baru</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th width="10%">No</th>
                                             <th>Nama</th>
-                                            <th width="30%">Aksi</th>
+                                            <th width="25%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -42,8 +41,9 @@
                                                 <td class="py-2">
                                                     <a href="{{ route('classrooms.students.index', $classroom->id) }}"
                                                         class="btn btn-sm btn-primary">Lihat Siswa</a>
-                                                    <a href="{{ route('classrooms.edit', $classroom->id) }}"
-                                                        class="btn btn-sm btn-warning">Ubah</a>
+                                                    <button class="btn btn-sm btn-warning EditClassroom"
+                                                        data-classroom-id="{{ $classroom->id }}"
+                                                        data-classroom-name="{{ $classroom->name }}">Ubah</button>
                                                     <button type="button"
                                                         data-action="{{ route('classrooms.destroy', $classroom->id) }}"
                                                         data-confirm-text="Anda yakin menghapus data kelas ini?"
@@ -60,7 +60,97 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $('#AddClassroom').click(function() {
+            $('#addClassroomModal').remove();
+
+            var modal = `
+                <div class="modal fade" id="addClassroomModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Kelas Baru</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('classrooms.store') }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-lg-3 col-form-label">Nama Kelas <span class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                                            <div class="invalid-feedback">
+                                                @error('name')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('body').append(modal);
+            $('#addClassroomModal').modal('show');
+        });
+
+        $('.EditClassroom').click(function() {
+            $('#editClassroomModal').remove();
+            var classroomId = $(this).data('classroom-id');
+            var classroomName = $(this).data('classroom-name');
+
+            var modal = `
+                <div class="modal fade" id="editClassroomModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Kelas</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('classrooms.update', ['id' => 'classroomId']) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-lg-3 col-form-label">Nama Kelas <span class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <input type="text" name="name" value="${classroomName}" class="form-control @error('name') is-invalid @enderror">
+                                            <div class="invalid-feedback">
+                                                @error('name')
+                                                {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal = modal.replace('classroomId', classroomId);
+
+            $('body').append(modal);
+            $('#editClassroomModal').modal('show');
+        });
+    </script>
+@endpush

@@ -15,11 +15,6 @@ class ClassroomController extends Controller
         return view('pages.classrooms.index', compact('classrooms'));
     }
 
-    public function create()
-    {
-        return view('pages.classrooms.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -33,17 +28,6 @@ class ClassroomController extends Controller
         $classrooms->save();
 
         return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil ditambahkan!');
-    }
-
-    public function edit($id)
-    {
-        $classroom = Classroom::find($id);
-
-        if (!$classroom) {
-            abort(404);
-        }
-
-        return view('pages.classrooms.edit', compact('classroom'));
     }
 
     public function update($id, Request $request)

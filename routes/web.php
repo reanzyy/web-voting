@@ -7,9 +7,10 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\VisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,19 +45,18 @@ Route::middleware([Authenticate::class])->group(function () {
 
     Route::controller(ClassroomController::class)->prefix('classrooms')->name('classrooms.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
-        
+
         Route::controller(StudentController::class)->name('students.')->group(function () {
             Route::get('/{id}/students', 'index')->name('index');
             Route::get('/{id}/students/create', 'create')->name('create');
-            Route::post('/{id}', 'store')->name('store');
+            Route::post('/{id}/students', 'store')->name('store');
             Route::get('/{id_classroom}/students/edit/{id_student}', 'edit')->name('edit');
             Route::put('/{id_classroom}/{id_student}', 'update')->name('update');
             Route::delete('/{id_classroom}/{id_student}', 'destroy')->name('destroy');
+            Route::post('/{classroomId}/import', 'import')->name('import');
         });
     });
 
@@ -67,5 +67,19 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/{id}/edit', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
+
+        Route::controller(VisionController::class)->name('visions.')->group(function () {
+            Route::get('/{id}/visions', 'index')->name('index');
+            Route::post('/{id}/visions', 'store')->name('store');
+            Route::put('/{id_candidate}/{id_visions}', 'update')->name('update');
+            Route::delete('/{id_candidate}/{id_visions}', 'destroy')->name('destroy');
+        });
+
+        Route::controller(MissionController::class)->name('missions.')->group(function () {
+            Route::get('/{id}/missions', 'index')->name('index');
+            Route::post('/{id}/missions', 'store')->name('store');
+            Route::put('/{id_candidate}/{id_missions}', 'update')->name('update');
+            Route::delete('/{id_candidate}/{id_missions}', 'destroy')->name('destroy');
+        });
     });
 });

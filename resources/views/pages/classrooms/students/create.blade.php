@@ -63,8 +63,7 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-9">
                                         <select name="gender" class="form-control @error('gender') is-invalid @enderror">
-                                            <option>Pilih jenis kelamin</option>
-                                            <option disabled>-------------------</option>
+                                            <option selected disabled>Pilih jenis kelamin</option>
                                             <option value="Laki-laki">Laki-laki</option>
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
