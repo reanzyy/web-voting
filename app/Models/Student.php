@@ -16,4 +16,9 @@ class Student extends Model
         'gender',
         'status'
     ];
+
+    public function hasVoted()
+    {
+        return Vote::where('student_id', $this->id)->exists();
+    }
 }
