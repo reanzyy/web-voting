@@ -25,33 +25,19 @@ class StudentsImport implements ToCollection, WithHeadingRow
             DB::beginTransaction();
             foreach ($rows as $row) {
 
-                if (!isset($row['nis'])) {
-                    throw new Exception(' NIS tidak ada');
-                }
-
-                if (!isset($row['nama'])) {
-                    throw new Exception(' Nama tidak ada');
-                }
-
-                if (!isset($row['jenis_kelamin'])) {
-                    throw new Exception(' Jenis Kelamin tidak ada');
-                }
-
-                $status = $row['status'] ?? 'Belum Memilih';
-
                 $existStudent = Student::where('identity', $row['nis'])->first();
 
                 if ($existStudent) {
                     throw new Exception('NIS ' . $row['nis'] . ' sudah ada');
                 }
 
-                if ($row['nis'] !== null && $row['nama'] !== null && $row['gender'] !== null) {
+                if ($row['nis'] !== null && $row['nama'] !== null && $row['jenis_kelamin'] !== null) {
                     Student::create([
                         'classroom_id' => $this->classroom->id,
                         'identity' => $row['nis'],
                         'name' => $row['nama'],
                         'gender' => $row['jenis_kelamin'],
-                        'status' => $status,
+                        'status' => 'Belum Memilih',
                     ]);
                 }
             }
