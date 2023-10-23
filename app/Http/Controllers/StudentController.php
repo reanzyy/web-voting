@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Vote;
 use App\Models\Student;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -126,5 +127,23 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('classrooms.students.index', $classroom->id)->withSuccess('Siswa berhasil dihapus!');
+    }
+
+    public function reset($id_classroom, $id_student)
+    {
+        $classroom = Classroom::find($id_classroom);
+        $student = Student::find($id_student);
+
+        if (!$classroom && !$student) {
+            abort(404);
+        }
+
+        $vote = Vote::where('student_id', $student->id)->first();
+        $vote->delete();
+
+        $student->status = 'Belum Memilih';
+        $student->save();
+
+        return redirect()->back()->withSuccess('Token berhasil direset!');
     }
 }
