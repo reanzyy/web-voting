@@ -29,7 +29,7 @@ class VoteController extends Controller
             ->first();
 
         if ($student->hasVoted()) {
-            return $this->sendError('student has already voted', 400);
+            return $this->sendError('siswa sudah melakukan voting', 400);
         }
 
         $student->status = "Sudah Memilih";
