@@ -10,9 +10,8 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('candidates.index') }}">Kandidat</a></div>
-                    <div class="breadcrumb-item"><a
-                            href="{{ route('candidates.visions.index', $candidate->id) }}">{{ $candidate->name }}</a>Kandidat
-                        {{ $candidate->sequence }}</div>
+                    <div class="breadcrumb-item"><a href="{{ route('candidates.index', $candidate->id) }}">Kandidat
+                            {{ $candidate->sequence }}</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('candidates.visions.index', $candidate->id) }}">Visi</a>
                     </div>
                     <div class="breadcrumb-item">Daftar Visi</div>

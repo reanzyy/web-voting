@@ -40,7 +40,7 @@ class MissionController extends Controller
         $request->validate(
             [
                 'candidate_id' => 'required',
-                'sequence' => 'required',
+                'sequence' => ['required', 'numeric', 'between:1,100'],
                 'description' => 'required|max:255|min:5',
             ],
             [
@@ -49,6 +49,7 @@ class MissionController extends Controller
                 'description.max' => 'Maksimal 255 karakter!',
                 'description.min' => 'Minimal 5 karakter!',
                 'sequence.required' => 'Urutan harus diisi!',
+                'sequence.between' => 'Urutan harus berupa angka antara 1 sampai 100.',
             ]
         );
 
@@ -80,15 +81,16 @@ class MissionController extends Controller
         $request->validate(
             [
                 'candidate_id' => 'required',
-                'sequence' => 'required',
+                'sequence' => ['required', 'numeric', 'between:1,100'],
                 'description' => 'required|max:255|min:5',
             ],
             [
-                'candidate_id' => 'Kandidat harus diisi!',
+                'candidate_id.required' => 'Kandidat harus diisi!',
                 'description.required' => 'Misi yang dinilai harus diisi!',
                 'description.max' => 'Maksimal 255 karakter!',
                 'description.min' => 'Minimal 5 karakter!',
                 'sequence.required' => 'Urutan harus diisi!',
+                'sequence.between' => 'Urutan harus berupa angka antara 1 sampai 100.',
             ]
         );
 

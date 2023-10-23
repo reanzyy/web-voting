@@ -45,13 +45,15 @@ class StudentsImport implements ToCollection, WithHeadingRow
                     throw new Exception('NIS ' . $row['nis'] . ' sudah ada');
                 }
 
-                Student::create([
-                    'classroom_id' => $this->classroom->id,
-                    'identity' => $row['nis'],
-                    'name' => $row['nama'],
-                    'gender' => $row['jenis_kelamin'],
-                    'status' => $status,
-                ]);
+                if ($row['nis'] !== null && $row['nama'] !== null && $row['gender'] !== null) {
+                    Student::create([
+                        'classroom_id' => $this->classroom->id,
+                        'identity' => $row['nis'],
+                        'name' => $row['nama'],
+                        'gender' => $row['jenis_kelamin'],
+                        'status' => $status,
+                    ]);
+                }
             }
             DB::commit();
         } catch (\Exception $e) {
