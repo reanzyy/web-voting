@@ -29,12 +29,12 @@
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th width="10%">No</th>
                                             <th>Calon Ketua</th>
                                             <th>Calon Wakil Ketua</th>
                                             <th>Foto Calon Ketua</th>
                                             <th>Foto Calon Wakil Ketua</th>
-                                            <th>Aksi</th>
+                                            <th width="20%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,9 +50,9 @@
                                                         class="img-fluid" width="100" alt=""></td>
                                                 <td class="py-2">
                                                     <div class="d-flex" style="gap: 5px">
-                                                        <a href="{{ route('candidates.edit', $candidate->id) }}"
+                                                        <a href="{{ route('candidates.visions.index', $candidate->id) }}"
                                                             class="btn btn-sm btn-primary">Visi</a>
-                                                        <a href="{{ route('candidates.edit', $candidate->id) }}"
+                                                        <a href="{{ route('candidates.missions.index', $candidate->id) }}"
                                                             class="btn btn-sm btn-primary">Misi</a>
                                                         <a href="{{ route('candidates.edit', $candidate->id) }}"
                                                             class="btn btn-sm btn-warning">Ubah</a>

@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Mission extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'candidate_id',
+        'sequence',
+        'description',
+    ];
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class, 'candidate_id', 'id');
+    }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\StudentsImport;
+use App\Models\Classroom;
 use App\Models\Vote;
 use App\Models\Student;
-use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -45,13 +47,14 @@ class StudentController extends Controller
 
         $request->validate(
             [
-                'identity' => 'required|max:255',
+                'identity' => 'required|max:255|unique:students,identity',
                 'name' => 'required|max:255',
                 'gender' => 'required|in:Laki-laki,Perempuan'
             ],
             [
                 'identity.required' => 'NIS harus diisi!',
                 'identity.max' => 'Maksimal 255 karakter!',
+                'identity.unique' => 'NIS sudah digunakan!',
                 'name.required' => 'Nama harus diisi!',
                 'name.max' => 'Maksimal 255 karakter!',
                 'gender.required' => 'Jenis kelamin harus diisi!',
@@ -127,6 +130,22 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('classrooms.students.index', $classroom->id)->withSuccess('Siswa berhasil dihapus!');
+    }
+
+    public function import(Request $request, $classroomId)
+    {
+        $classroom = Classroom::find($classroomId);
+
+        $request->validate([
+            'import_file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        try {
+            Excel::import(new StudentsImport($classroom), $request->file('import_file'));
+            return redirect()->route('classrooms.students.index', $classroom->id)->with('success', 'Data siswa berhasil diimpor.');
+        } catch (\Exception $e) {
+            return redirect()->route('classrooms.students.index', $classroom->id)->with('error', 'Terjadi kesalahan saat mengimpor data siswa.' . $e->getMessage());
+        }
     }
 
     public function reset($id_classroom, $id_student)
