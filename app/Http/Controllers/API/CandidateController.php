@@ -52,7 +52,7 @@ class CandidateController extends Controller
             $data[] = [
                 'id' => $vision->id,
                 'sequence' => $vision->sequence,
-                'vision' => $vision->description,
+                'description' => $vision->description,
             ];
         }
 
@@ -78,10 +78,70 @@ class CandidateController extends Controller
             $data[] = [
                 'id' => $mission->id,
                 'sequence' => $mission->sequence,
-                'vision' => $mission->description,
+                'description' => $mission->description,
             ];
         }
 
         return $this->sendSuccess($data, 'successfully load visions', 200);
+    }
+
+    public function show($id)
+    {
+        $candidate = Candidate::find($id);
+
+        if (!$candidate) {
+            return $this->sendError('failed to load candidate', 400);
+        }
+
+        return $this->sendSuccess([
+            'id' => $candidate->id,
+            'sequence' => $candidate->sequence,
+            'chairman' => $candidate->chairman,
+            'deputy_chairman' => $candidate->deputy_chairman,
+            'photo_chairman' => Storage::disk('public')->url($candidate->photo_chairman),
+            'photo_deputy_chairman' => Storage::disk('public')->url($candidate->photo_deputy_chairman),
+        ], 'successfully load candidate', 200);
+    }
+
+    public function getDetail($id)
+    {
+        $candidate = Candidate::find($id);
+
+        if (!$candidate) {
+            return $this->sendError('failed to load candidate', 400);
+        }
+
+        $visions = Vision::where('candidate_id', $candidate->id)->get();
+        $missions = Mission::where('candidate_id', $candidate->id)->get();
+
+        $visi = [];
+        $misi = [];
+
+        foreach ($visions as $vision) {
+            $visi[] = [
+                'id' => $vision->id,
+                'sequence' => $vision->sequence,
+                'description' => $vision->description,
+            ];
+        }
+
+        foreach ($missions as $mission) {
+            $misi[] = [
+                'id' => $mission->id,
+                'sequence' => $mission->sequence,
+                'description' => $mission->description,
+            ];
+        }
+
+        return $this->sendSuccess([
+            'id' => $candidate->id,
+            'sequence' => $candidate->sequence,
+            'chairman' => $candidate->chairman,
+            'deputy_chairman' => $candidate->deputy_chairman,
+            'photo_chairman' => Storage::disk('public')->url($candidate->photo_chairman),
+            'photo_deputy_chairman' => Storage::disk('public')->url($candidate->photo_deputy_chairman),
+            'visions' => $visi,
+            'missions' => $misi
+        ], 'successfully load data', 200);
     }
 }

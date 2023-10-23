@@ -24,6 +24,8 @@ Route::controller(CandidateController::class)->prefix('candidates')->group(funct
     Route::get('/', 'index');
     Route::get('/{id}/visions', 'getListVision');
     Route::get('/{id}/missions', 'getListMission');
+    Route::get('/{id}', 'show');
+    Route::get('/{id}/detail', 'getDetail');
 });
 
 Route::controller(VoteController::class)->prefix('votes')->group(function () {
