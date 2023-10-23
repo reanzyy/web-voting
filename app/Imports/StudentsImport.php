@@ -26,15 +26,15 @@ class StudentsImport implements ToCollection, WithHeadingRow
             foreach ($rows as $row) {
 
                 if (!isset($row['nis'])) {
-                    throw new Exception('NIS tidak ada');
+                    throw new Exception(' NIS tidak ada');
                 }
 
                 if (!isset($row['nama'])) {
-                    throw new Exception('Nama tidak ada');
+                    throw new Exception(' Nama tidak ada');
                 }
 
                 if (!isset($row['jenis_kelamin'])) {
-                    throw new Exception('Jenis Kelamin tidak ada');
+                    throw new Exception(' Jenis Kelamin tidak ada');
                 }
 
                 $status = $row['status'] ?? 'Belum Memilih';

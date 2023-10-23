@@ -97,8 +97,6 @@ class MissionController extends Controller
         $missions->description = $request->description;
         $missions->save();
 
-        dd($request->all());
-
         return redirect()->route('candidates.missions.index', $candidate->id)->withSuccess('Misi berhasil diubah!');
     }
 

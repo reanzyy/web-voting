@@ -71,15 +71,15 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::controller(VisionController::class)->name('visions.')->group(function () {
             Route::get('/{id}/visions', 'index')->name('index');
             Route::post('/{id}/visions', 'store')->name('store');
-            Route::put('/{id_candidate}/{id_visions}', 'update')->name('update');
-            Route::delete('/{id_candidate}/{id_visions}', 'destroy')->name('destroy');
+            Route::put('/{id_candidate}/visions/{id_visions}', 'update')->name('update');
+            Route::delete('/{id_candidate}/visions/{id_visions}', 'destroy')->name('destroy');
         });
 
         Route::controller(MissionController::class)->name('missions.')->group(function () {
             Route::get('/{id}/missions', 'index')->name('index');
             Route::post('/{id}/missions', 'store')->name('store');
-            Route::put('/{id_candidate}/{id_missions}', 'update')->name('update');
-            Route::delete('/{id_candidate}/{id_missions}', 'destroy')->name('destroy');
+            Route::put('/{id_candidate}/missions/{id_missions}', 'update')->name('update');
+            Route::delete('/{id_candidate}/missions/{id_missions}/', 'destroy')->name('destroy');
         });
     });
 });
