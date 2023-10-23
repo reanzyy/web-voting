@@ -22,6 +22,8 @@ Route::controller(AnalyticController::class)->prefix('analytic')->group(function
 
 Route::controller(CandidateController::class)->prefix('candidates')->group(function () {
     Route::get('/', 'index');
+    Route::get('/{id}/visions', 'getListVision');
+    Route::get('/{id}/missions', 'getListMission');
 });
 
 Route::controller(VoteController::class)->prefix('votes')->group(function () {
