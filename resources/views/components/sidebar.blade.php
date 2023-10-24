@@ -11,7 +11,7 @@
                 <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-gauge"></i> <span>Dashboard</span></a>
             </li>
             <li class="{{ Request::is('users*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-user"></i> <span>Pengguna</span></a>
+                <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-user"></i> <span>Operator</span></a>
             </li>
             <li class="{{ Request::is('classrooms*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i> <span>Kelas</span></a>

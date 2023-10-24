@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Pengguna')
+@section('title', 'Tambah Operator')
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Pengguna</h1>
+                <h1>Operator</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
-                    <div class="breadcrumb-item">Tambah Pengguna</div>
+                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Operator</a></div>
+                    <div class="breadcrumb-item">Tambah Operator</div>
                 </div>
             </div>
 

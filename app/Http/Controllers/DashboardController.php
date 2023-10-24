@@ -6,12 +6,10 @@ use App\Models\Candidate;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Vote;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $admin = User::count();
         $candidate = Candidate::count();
@@ -19,9 +17,7 @@ class DashboardController extends Controller
         $student = Student::count();
         $votes = $student - $vote_in;
 
-        $query = DB::table('votes')
-            ->select('candidate_id', DB::raw('count(*) as count'))
-            ->groupBy('candidate_id')
+        $candidates = Candidate::orderBy('sequence', 'ASC')
             ->get();
 
         $chartData = [
@@ -29,12 +25,13 @@ class DashboardController extends Controller
             'counts' => [],
         ];
 
-        foreach ($query as $vote) {
-            $chartData['labels'][] = "Paslon " . $vote->candidate_id;
-            $chartData['counts'][] = $vote->count;
-        }
+        foreach ($candidates as $data) {
+            $count = Vote::where('candidate_id', $data->id)
+                ->count();
 
-        // dd($chartData);
+            $chartData['labels'][] = "Paslon " . $data->sequence;
+            $chartData['counts'][] = $count;
+        }
 
         return view(
             'pages.dashboard',

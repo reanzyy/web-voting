@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Pengguna')
+@section('title', 'Daftar Operator')
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Pengguna</h1>
+                <h1>Operator</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
-                    <div class="breadcrumb-item">Daftar Pengguna</div>
+                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Operator</a></div>
+                    <div class="breadcrumb-item">Daftar Operator</div>
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                     <div class="col-sm-12">
                         <div class="pt-4 pr-4" style="float: right;">
                             <a href="{{ route('users.create') }}" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Tambah Data Pengguna Baru
+                                <i class="fas fa-plus"></i> Tambah Data Operator Baru
                             </a>
                         </div>
                         <div class="card-body">
@@ -47,7 +47,7 @@
                                                     @if (Auth::id() != $user->id)
                                                         <button type="button"
                                                             data-action="{{ route('users.destroy', $user->id) }}"
-                                                            data-confirm-text="Anda yakin menghapus data pengguna ini?"
+                                                            data-confirm-text="Anda yakin menghapus data operator ini?"
                                                             class="btn btn-sm btn-danger btn-delete">
                                                             Hapus
                                                         </button>
