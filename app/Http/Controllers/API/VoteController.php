@@ -14,14 +14,14 @@ class VoteController extends Controller
         $request->validate(
             [
                 'student_id' => 'required|exists:students,identity',
-                'candidate_id' => 'required|exists:students,id'
+                'candidate_id' => 'required|exists:candidates,id'
             ],
             [
                 'student_id.required' => 'NIS harus diisi!',
-                'student_id.unique' => 'Siswa ini sudah memilih!',
-                'student_id.exists' => 'Siswa ini tidak terdaftar!',
-                'candidate_id.required' => 'Kandidat harus diisi!',
-                'candidate_id.exists' => 'Kandidat ini tidak terdaftar!',
+                'student_id.unique' => 'siswa ini sudah memilih!',
+                'student_id.exists' => 'siswa ini tidak terdaftar!',
+                'candidate_id.required' => 'kandidat harus diisi!',
+                'candidate_id.exists' => 'kandidat ini tidak terdaftar!',
             ]
         );
 

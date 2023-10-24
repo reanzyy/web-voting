@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda')
+@section('title', 'Dashboard')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,7 +12,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Beranda</h1>
+                <h1>Dashboard</h1>
             </div>
 
             <x-alert />
@@ -73,7 +73,11 @@
                                 <h4>Hak Suara Tersisa</h4>
                             </div>
                             <div class="card-body">
-                                {{ $vote }}
+                                {{ $votes }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header justify-content-center">

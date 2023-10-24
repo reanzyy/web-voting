@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $candidate = Candidate::count();
         $vote_in = Vote::count();
         $student = Student::count();
-        $vote = $student - $vote_in;
+        $votes = $student - $vote_in;
 
         $query = DB::table('votes')
             ->select('candidate_id', DB::raw('count(*) as count'))
@@ -30,10 +30,21 @@ class DashboardController extends Controller
         ];
 
         foreach ($query as $vote) {
-            $chartData['labels'][] = "Kandidat " . $vote->candidate_id;
+            $chartData['labels'][] = "Paslon " . $vote->candidate_id;
             $chartData['counts'][] = $vote->count;
         }
 
-        return view('pages.dashboard', compact('admin','candidate','vote_in','vote', 'chartData'));
+        // dd($chartData);
+
+        return view(
+            'pages.dashboard',
+            [
+                'chartData' => $chartData,
+                'admin' => $admin,
+                'candidate' => $candidate,
+                'votes' => $votes,
+                'vote_in' => $vote_in,
+            ]
+        );
     }
 }

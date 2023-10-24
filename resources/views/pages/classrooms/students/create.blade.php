@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Siswa')
+@section('title', 'Tambah Siswa')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
