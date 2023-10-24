@@ -29,7 +29,7 @@
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No/th>
                                             <th>Nama</th>
                                             <th>Username</th>
                                             <th>Aksi</th>

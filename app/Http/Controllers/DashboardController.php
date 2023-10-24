@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\Classroom;
 use App\Models\Student;
-use App\Models\User;
 use App\Models\Vote;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $operator = User::count();
-        $candidate = Candidate::count();
+        $selectedYear = $request->input('selected_year', Carbon::now()->format('Y'));
+        $classrooms = Classroom::count();
+        $students = Student::count();
         $vote_in = Vote::count();
         $student = Student::count();
         $votes = $student - $vote_in;
@@ -27,6 +30,7 @@ class DashboardController extends Controller
 
         foreach ($candidates as $data) {
             $count = Vote::where('candidate_id', $data->id)
+                ->whereYear('created_at', $selectedYear)
                 ->count();
 
             $chartData['labels'][] = "Paslon " . $data->sequence;
@@ -37,8 +41,8 @@ class DashboardController extends Controller
             'pages.dashboard',
             [
                 'chartData' => $chartData,
-                'operator' => $operator,
-                'candidate' => $candidate,
+                'classrooms' => $classrooms,
+                'students' => $students,
                 'votes' => $votes,
                 'vote_in' => $vote_in,
             ]

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolYearController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VisionController;
 
@@ -82,5 +83,12 @@ Route::middleware([Authenticate::class])->group(function () {
             Route::put('/{id_candidate}/missions/{id_missions}', 'update')->name('update');
             Route::delete('/{id_candidate}/missions/{id_missions}/', 'destroy')->name('destroy');
         });
+    });
+
+    Route::controller(SchoolYearController::class)->prefix('school-years')->name('school-years.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{id}/school-years', 'update')->name('update');
+        Route::delete('/{id}/school-years', 'destroy')->name('destroy');
     });
 });

@@ -13,6 +13,10 @@
             <li class="{{ Request::is('users*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-user"></i> <span>Operator</span></a>
             </li>
+            <li class="{{ Request::is('school-years*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('school-years') }}"><i class="fas fa-calendar"></i> <span>Tahun
+                        Pelajaran</span></a>
+            </li>
             <li class="{{ Request::is('classrooms*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i>
                     <span>Kelas</span></a>

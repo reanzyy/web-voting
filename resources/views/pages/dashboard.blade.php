@@ -21,14 +21,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-info">
-                            <i class="far fa-user"></i>
+                            <i class="fas fa-school-flag"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Operator</h4>
+                                <h4>Kelas</h4>
                             </div>
                             <div class="card-body">
-                                {{ $operator }}
+                                {{ $classrooms }}
                             </div>
                         </div>
                     </div>
@@ -40,10 +40,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Kandidat OSIS</h4>
+                                <h4>Siswa</h4>
                             </div>
                             <div class="card-body">
-                                {{ $candidate }}
+                                {{ $students }}
                             </div>
                         </div>
                     </div>
@@ -84,13 +84,13 @@
                             <h4 class="text-blue"><strong>Grafik Total Suara</strong></h4>
                         </div>
                         <div class="card-body">
-                            {{-- <form method="GET" action="{{ route('dashboard') }}" id="yearForm">
+                            <form method="GET" action="{{ route('dashboard') }}" id="yearForm">
                                 <div class="form-group">
                                     <label for="selected_year">Pilih Tahun:</label>
                                     <input type="number" class="form-control" name="selected_year" id="selected_year"
                                         value="{{ request('selected_year', \Carbon\Carbon::now()->format('Y')) }}">
                                 </div>
-                            </form> --}}
+                            </form>
                             <div class="chart-container mt-3">
                                 <canvas id="votingChart"></canvas>
                             </div>
