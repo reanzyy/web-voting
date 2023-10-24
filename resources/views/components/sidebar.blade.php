@@ -14,10 +14,21 @@
                 <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-user"></i> <span>Operator</span></a>
             </li>
             <li class="{{ Request::is('classrooms*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i> <span>Kelas</span></a>
+                <a class="nav-link" href="{{ url('classrooms') }}"><i class="fas fa-school-flag"></i>
+                    <span>Kelas</span></a>
             </li>
             <li class="{{ Request::is('candidates*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('candidates') }}"><i class="fas fa-user-group"></i> <span>Kandidat</span></a>
+                <a class="nav-link" href="{{ url('candidates') }}"><i class="fas fa-user-group"></i>
+                    <span>Kandidat</span></a>
+            </li>
+            <li class="menu-header">Pengaturan</li>
+            <li class="{{ Request::is('profile*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('profile') }}"><i class="fa-regular fa-user"></i>
+                    <span>Profile</span></a>
+            </li>
+            <li class="{{ Request::is('logout*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('logout') }}"><i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span></a>
             </li>
         </ul>
     </aside>
