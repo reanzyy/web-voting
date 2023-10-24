@@ -18,6 +18,62 @@
             <x-alert />
 
             <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-info">
+                            <i class="far fa-user"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Admin</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $admin }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-user-group"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Kandidat OSIS</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $candidate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-arrow-right-to-bracket"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Hak Suara Masuk</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $vote_in }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-danger">
+                            <i class="fas fa-inbox"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Hak Suara Tersisa</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $vote }}
                 <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header justify-content-center">
