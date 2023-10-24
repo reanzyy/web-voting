@@ -6,7 +6,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Kandidat</h1>
+                <h1>Ubah Kandidat</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('candidates.index') }}">Kandidat</a></div>
@@ -18,7 +18,8 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
                         <div class="card-body">
-                            <form action="{{ route('candidates.update', $candidate->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('candidates.update', $candidate->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group row mb-3">
@@ -69,7 +70,8 @@
                                     <div class="col-lg-9">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg" name="photo_chairman"
-                                                class="custom-file-input" value="{{ old('photo_chairman', $candidate->photo_chairman) }}">
+                                                class="custom-file-input"
+                                                value="{{ old('photo_chairman', $candidate->photo_chairman) }}">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <div class="form-text text-muted">Ukuran foto maksimal 2MB
@@ -82,7 +84,8 @@
                                     <div class="col-lg-9">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg" name="photo_deputy_chairman"
-                                                class="custom-file-input" value="{{ old('photo_deputy_chairman', $candidate->photo_deputy_chairman) }}">
+                                                class="custom-file-input"
+                                                value="{{ old('photo_deputy_chairman', $candidate->photo_deputy_chairman) }}">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <div class="form-text text-muted">Ukuran foto maksimal 2MB

@@ -76,7 +76,7 @@
                                                         @if ($student->hasVoted())
                                                             <button type="button"
                                                                 data-action="{{ route('classrooms.students.reset', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
-                                                                data-confirm-text="Anda yakin reset token siswa ini?"
+                                                                data-confirm-text="Anda yakin reset status siswa ini?"
                                                                 class="btn btn-sm btn-primary btn-reset">
                                                                 Reset
                                                             </button>
@@ -114,7 +114,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Import Siswa</h5>
+                                <h5 class="modal-title">Import Data Siswa</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

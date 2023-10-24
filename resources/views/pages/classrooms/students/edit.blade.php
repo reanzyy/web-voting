@@ -6,7 +6,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Siswa</h1>
+                <h1>Ubah Siswa</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('classrooms.index') }}">Kelas</a></div>
@@ -26,7 +26,9 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
                         <div class="card-body">
-                            <form action="{{ route('classrooms.students.update', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}" method="post">
+                            <form
+                                action="{{ route('classrooms.students.update', ['id_classroom' => $classroom->id, 'id_student' => $student->id]) }}"
+                                method="post">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group row mb-3">

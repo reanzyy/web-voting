@@ -163,6 +163,6 @@ class StudentController extends Controller
         $student->status = 'Belum Memilih';
         $student->save();
 
-        return redirect()->back()->withSuccess('Token berhasil direset!');
+        return redirect()->back()->withSuccess('Status berhasil direset!');
     }
 }

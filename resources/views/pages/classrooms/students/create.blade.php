@@ -10,7 +10,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Siswa</h1>
+                <h1>Tambah Siswa</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('classrooms.index') }}">Kelas</a></div>

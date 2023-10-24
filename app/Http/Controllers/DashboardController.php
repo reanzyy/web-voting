@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $admin = User::count();
+        $operator = User::count();
         $candidate = Candidate::count();
         $vote_in = Vote::count();
         $student = Student::count();
@@ -37,7 +37,7 @@ class DashboardController extends Controller
             'pages.dashboard',
             [
                 'chartData' => $chartData,
-                'admin' => $admin,
+                'operator' => $operator,
                 'candidate' => $candidate,
                 'votes' => $votes,
                 'vote_in' => $vote_in,
