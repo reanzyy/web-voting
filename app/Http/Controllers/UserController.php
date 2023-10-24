@@ -46,7 +46,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('users.index')->withSuccess('Pengguna berhasil ditambahkan!');
+        return redirect()->route('users.index')->withSuccess('Operator berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -96,7 +96,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('users.index')->withSuccess('Pengguna berhasil diubah!');
+        return redirect()->route('users.index')->withSuccess('Operator berhasil diubah!');
     }
 
     public function destroy($id)
@@ -109,6 +109,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->withSuccess('Pengguna berhasil dihapus!');
+        return redirect()->route('users.index')->withSuccess('Operator berhasil dihapus!');
     }
 }
