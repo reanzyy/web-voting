@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Operator')
+@section('title', 'Edit Pengguna')
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Ubah Operator</h1>
+                <h1>Ubah Pengguna</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Operator</a></div>
-                    <div class="breadcrumb-item">Ubah Operator</div>
+                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
+                    <div class="breadcrumb-item">Ubah Pengguna</div>
                 </div>
             </div>
 
@@ -45,6 +45,25 @@
                                                 value="{{ old('username', $user->username) }}">
                                             <div class="invalid-feedback">
                                                 @error('username')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3">
+                                        <label class="col-lg-3 col-form-label">Role <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <select {{ Auth::id() == $user->id ? 'disabled' : '' }} name="role"
+                                                class="form-control @error('role') is-invalid @enderror">
+                                                <option value="{{ $user->role }}">
+                                                    {{ $user->role == 'admin' ? 'Admin' : 'Super Admin' }}</option>
+                                                <option disabled>----------</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="superadmin">Super Admin</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                @error('role')
                                                     {{ $message }}
                                                 @enderror
                                             </div>

@@ -26,6 +26,7 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'username' => 'required|alpha_num:ascii|unique:users,username|min:5|max:255',
             'password' => 'required|confirmed|min:5|max:255',
+            'role' => 'required|in:admin,superadmin',
         ], [
             'name.required' => 'Nama harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
@@ -38,15 +39,19 @@ class UserController extends Controller
             'password.max' => 'Maksimal 255 karakter!',
             'password.min' => 'Minimal 5 karakter!',
             'password.confirmed' => 'Password dan Password konfirmasi tidak sama!',
+            'role.required' => 'Role harus diisi!',
+            'role.in' => 'Role harus berisi admin, superadmin!',
         ]);
 
         User::create([
             'name' => $request->name,
             'username' => $request->username,
             'password' => bcrypt($request->password),
+            'password_hint' => $request->password,
+            'role' => $request->role,
         ]);
 
-        return redirect()->route('users.index')->withSuccess('Operator berhasil ditambahkan!');
+        return redirect()->route('users.index')->withSuccess('Pengguna berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -83,6 +88,8 @@ class UserController extends Controller
             'password.max' => 'Maksimal 255 karakter!',
             'password.min' => 'Minimal 5 karakter!',
             'password.confirmed' => 'Password dan Password konfirmasi tidak sama!',
+            'role.required' => 'Role harus diisi!',
+            'role.in' => 'Role harus berisi admin, superadmin!',
         ]);
 
         if ($request->password_confirmation && !$request->password) {
@@ -93,10 +100,13 @@ class UserController extends Controller
         $user->username = $request->username;
         if ($request->password) {
             $user->password = bcrypt($request->password);
+            $user->password_hint = $request->password;
         }
+        $user->role = $request->role;
+
         $user->save();
 
-        return redirect()->route('users.index')->withSuccess('Operator berhasil diubah!');
+        return redirect()->route('users.index')->withSuccess('Pengguna berhasil diubah!');
     }
 
     public function destroy($id)
@@ -109,6 +119,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->withSuccess('Operator berhasil dihapus!');
+        return redirect()->route('users.index')->withSuccess('Pengguna berhasil dihapus!');
     }
 }
