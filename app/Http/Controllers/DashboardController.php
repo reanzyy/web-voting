@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $selectedYear = $request->input('selected_year', Carbon::now()->format('Y'));
+        // $selectedYear = $request->input('selected_year', Carbon::now()->format('Y'));
 
         $schoolYears = SchoolYear::all();
         $defaultYearId = SchoolYear::where('is_active', true)->value('id');
@@ -43,12 +43,12 @@ class DashboardController extends Controller
             'counts' => [],
         ];
 
+
         foreach ($candidates as $data) {
             $count = Vote::where('candidate_id', $data->id)
-                ->whereYear('created_at', $selectedYear)
                 ->count();
 
-            $chartData['labels'][] = "Paslon " . $data->sequence;
+            $chartData['labels'][] = $data->chairman . " - "  . $data->deputy_chairman;
             $chartData['counts'][] = $count;
         }
 

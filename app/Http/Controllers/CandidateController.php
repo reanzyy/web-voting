@@ -56,6 +56,7 @@ class CandidateController extends Controller
             ]
         );
 
+        $schoolYears = SchoolYear::where('is_active', true)->first();
         $candidate = new Candidate;
 
         if ($request->hasFile('photo_chairman') && !empty($request->photo_chairman)) {
@@ -74,6 +75,7 @@ class CandidateController extends Controller
             $candidate->photo_deputy_chairman = "photos/{$fileName}";
         }
 
+        $candidate->school_year_id = $schoolYears->id;
         $candidate->sequence = $request->sequence;
         $candidate->chairman = $request->chairman;
         $candidate->deputy_chairman = $request->deputy_chairman;
@@ -96,6 +98,7 @@ class CandidateController extends Controller
     public function update($id, Request $request)
     {
         $candidate = Candidate::find($id);
+        $schoolYears = SchoolYear::where('is_active', true)->first();
 
         if (!$candidate) {
             abort(404);
@@ -149,6 +152,7 @@ class CandidateController extends Controller
             $candidate->photo_deputy_chairman = "photos/{$fileName}";
         }
 
+        $candidate->school_year_id = $schoolYears->id;
         $candidate->sequence = $request->sequence;
         $candidate->chairman = $request->chairman;
         $candidate->deputy_chairman = $request->deputy_chairman;

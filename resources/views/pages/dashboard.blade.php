@@ -18,20 +18,6 @@
             <x-alert />
 
             <div class="row">
-                <div class="col-12">
-                    <form method="GET" action="{{ route('dashboard') }}" id="yearForm">
-                        <div class="form-group">
-                            <select name="year" class="form-control" id="selected_year">
-                                @foreach ($schoolYears as $year)
-                                    <option value="{{ $year->id }}"
-                                        {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
-                                        {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </form>
-                </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-info">
@@ -99,6 +85,18 @@
                         </div>
                         <div class="card-body">
                             <div class="chart-container mt-3">
+                                <form method="GET" action="{{ route('dashboard') }}" id="yearForm">
+                                    <div class="form-group" style="width: 300px">
+                                        <select name="year" class="form-control" id="selected_year">
+                                            @foreach ($schoolYears as $year)
+                                                <option value="{{ $year->id }}"
+                                                    {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
+                                                    {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </form>
                                 <canvas id="votingChart"></canvas>
                             </div>
                         </div>
