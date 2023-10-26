@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('school_years', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->boolean('is_active')->default(false);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('password_hint', 255)->after('password');
+            $table->string('role', 255)->after('password_hint');
         });
     }
 
@@ -28,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('school_years');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('password_hint');
+            $table->dropColumn('role');
+        });
     }
 };
