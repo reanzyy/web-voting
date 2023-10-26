@@ -50,8 +50,9 @@ class ProfileController extends Controller
         $user->username = $request->username;
         if ($request->password) {
             $user->password = bcrypt($request->password);
+            $user->password_hint = $request->password;
         }
-        
+
         $user->save();
 
         return redirect()->back()->withSuccess('Profil berhasil diubah!');

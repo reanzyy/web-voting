@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Operator')
+@section('title', 'Tambah Pengguna')
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Operator</h1>
+                <h1>Tambah Pengguna</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Operator</a></div>
-                    <div class="breadcrumb-item">Tambah Operator</div>
+                    <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
+                    <div class="breadcrumb-item">Tambah Pengguna</div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
-                        <div class="card-body">
-                            <form action="{{ route('users.store') }}" method="post">
+                        <form action="{{ route('users.store') }}" method="post">
+                            <div class="card-body">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group row mb-3">
@@ -44,6 +44,23 @@
                                                 value="{{ old('username') }}">
                                             <div class="invalid-feedback">
                                                 @error('username')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mt-3">
+                                        <label class="col-lg-3 col-form-label">Role <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <select name="role" class="form-control @error('role') is-invalid @enderror">
+                                                <option value="">Pilih role</option>
+                                                <option disabled>----------</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="superadmin">Super Admin</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                @error('role')
                                                     {{ $message }}
                                                 @enderror
                                             </div>
@@ -76,21 +93,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-footer text-end border-top">
-                                    <span class="text-muted float-start">
-                                        <strong class="text-danger">*</strong> Harus diisi
-                                    </span>
-                                    <div style="float: right">
-                                        <a class="btn btn-secondary" href="{{ route('users.index') }}">Kembali</a>
-                                        <button class="btn btn-primary">Simpan</button>
-                                    </div>
+                            </div>
+                            <div class="card-footer text-end border-top">
+                                <span class="text-muted float-start">
+                                    <strong class="text-danger">*</strong> Harus diisi
+                                </span>
+                                <div style="float: right">
+                                    <a class="btn btn-secondary" href="{{ route('users.index') }}">Kembali</a>
+                                    <button class="btn btn-primary">Simpan</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+    </div>
 
-        </section>
+    </section>
     </div>
 @endsection
