@@ -3,18 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\SchoolYear;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $query = Candidate::query();
-        $candidates = $query->get();
+        $schoolYears = SchoolYear::all();
+        $defaultYearId = SchoolYear::where('is_active', true)->value('id');
+        $candidates = Candidate::query();
+        if ($request->has('year')) {
+            $candidates->where('school_year_id', $request->year);
+        } else {
+            $candidates->where('school_year_id', $defaultYearId);
+        }
+        $candidates = $candidates->get();
 
-        return view('pages.candidates.index', compact('candidates'));
+        return view('pages.candidates.index', compact('candidates', 'schoolYears', 'defaultYearId'));
     }
 
     public function create()

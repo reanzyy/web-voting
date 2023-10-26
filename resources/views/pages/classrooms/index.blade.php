@@ -23,6 +23,17 @@
                             <button class="btn btn-primary" id="AddClassroom"><i class="fa fa-plus"></i> Tambah Kelas
                                 Baru</button>
                         </div>
+                        <div class="pt-4 pl-4" style="float: left; display: flex; gap: 5px; margin-bottom: 30px;">
+                            <select name="year" class="form-control">
+                                @foreach ($schoolYears as $year)
+                                    <option value="{{ $year->id }}"
+                                        {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
+                                        {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="submit" id="btn-filter" class="btn btn-primary">Filter</button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
@@ -109,6 +120,7 @@
         $('.EditClassroom').click(function() {
             $('#editClassroomModal').remove();
             var classroomId = $(this).data('classroom-id');
+            alert(classroomId)
             var classroomName = $(this).data('classroom-name');
 
             var modal = `
@@ -151,6 +163,22 @@
 
             $('body').append(modal);
             $('#editClassroomModal').modal('show');
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('select[name="year"]').change(function() {
+                var selectedYear = $(this).val();
+                var Filter = "{{ route('classrooms.index') }}" + "?year=" + selectedYear;
+                $('#btn-filter').attr('href', Filter);
+            });
+
+            $('#btn-filter').click(function() {
+                var selectedYear = $('select[name="year"]').val();
+                var Filter = "{{ route('classrooms.index') }}" + "?year=" + selectedYear;
+                window.location.href = Filter;
+            });
         });
     </script>
 @endpush

@@ -3,27 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $classrooms = Classroom::orderBy('name', 'ASC')
-            ->get();
+        $schoolYears = SchoolYear::all();
+        $defaultYearId = SchoolYear::where('is_active', true)->value('id');
+        $classrooms = Classroom::query();
+        if ($request->has('year')) {
+            $classrooms->where('school_year_id', $request->year);
+        } else {
+            $classrooms->where('school_year_id', $defaultYearId);
+        }
+        $classrooms = $classrooms->get();
 
-        return view('pages.classrooms.index', compact('classrooms'));
+        return view('pages.classrooms.index', compact('classrooms', 'schoolYears', 'defaultYearId'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'school_year_id' => 'required',
             'name' => 'required|max:255'
         ], [
-            'name.required' => 'Nama kelas harus diisi!'
+            'name.required' => 'Nama kelas harus diisi!',
+            'name.max' => 'Maksimal 255 karakter!'
         ]);
 
         $classrooms = new Classroom;
+        $classrooms->school_year_id = $request->school_year_id;
         $classrooms->name = $request->name;
         $classrooms->save();
 
@@ -39,11 +50,14 @@ class ClassroomController extends Controller
         }
 
         $request->validate([
+            'school_year_id' => 'required',
             'name' => 'required|max:255'
         ], [
-            'name.required' => 'Nama kelas harus diisi!'
+            'name.required' => 'Nama kelas harus diisi!',
+            'name.max' => 'Maksimal 255 karakter!'
         ]);
 
+        $classroom->school_year_id = $request->school_year_id;
         $classroom->name = $request->name;
         $classroom->save();
 

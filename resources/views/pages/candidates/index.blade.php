@@ -24,6 +24,17 @@
                                 <i class="fas fa-plus"></i> Tambah Data Kandidat Baru
                             </a>
                         </div>
+                        <div class="pt-4 pl-4" style="float: left; display: flex; gap: 5px; margin-bottom: 30px;">
+                            <select name="year" class="form-control">
+                                @foreach ($schoolYears as $year)
+                                    <option value="{{ $year->id }}"
+                                        {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
+                                        {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="submit" id="btn-filter" class="btn btn-primary">Filter</button>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped datatable" style="width: 100%;">
@@ -43,7 +54,8 @@
                                                 <td class="py-2">{{ $candidate->sequence }}</td>
                                                 <td class="py-2">{{ $candidate->chairman }}</td>
                                                 <td class="py-2">{{ $candidate->deputy_chairman }}</td>
-                                                <td class="py-2"><img src="{{ Storage::url($candidate->photo_chairman) }}"
+                                                <td class="py-2"><img
+                                                        src="{{ Storage::url($candidate->photo_chairman) }}"
                                                         class="img-fluid" width="100" alt=""></td>
                                                 <td class="py-2"><img
                                                         src="{{ Storage::url($candidate->photo_deputy_chairman) }}"
@@ -77,3 +89,20 @@
         </section>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('select[name="year"]').change(function() {
+                var selectedYear = $(this).val();
+                var Filter = "{{ route('candidates.index') }}" + "?year=" + selectedYear;
+                $('#btn-filter').attr('href', Filter);
+            });
+
+            $('#btn-filter').click(function() {
+                var selectedYear = $('select[name="year"]').val();
+                var Filter = "{{ route('candidates.index') }}" + "?year=" + selectedYear;
+                window.location.href = Filter;
+            });
+        });
+    </script>
+@endpush

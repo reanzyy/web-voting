@@ -21,4 +21,9 @@ class Student extends Model
     {
         return Vote::where('student_id', $this->id)->exists();
     }
+
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id', 'id');
+    }
 }

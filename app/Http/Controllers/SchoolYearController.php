@@ -48,7 +48,7 @@ class SchoolYearController extends Controller
 
     public function update($id, Request $request)
     {
-        $schoolYear = SchoolYear::findOrFail($id);
+        $schoolYear = SchoolYear::find($id);
         abort_if(!$schoolYear, 400, 'Tahun Pelajaran tidak ditemukan');
 
         $data = $request->validate([
@@ -68,7 +68,10 @@ class SchoolYearController extends Controller
                 SchoolYear::where('is_active', true)->where('id', '!=', $schoolYear->id)->update(['is_active' => false]);
             }
 
-            $schoolYear->update($data);
+            // $schoolYear->update($data);
+            $schoolYear->name = $request->name;
+            $schoolYear->is_active = $request->is_active;
+            $schoolYear->save();
 
             DB::commit();
 
