@@ -25,8 +25,8 @@ class ClassroomController extends Controller
 
     public function store(Request $request)
     {
+        $schoolYears = SchoolYear::where('is_active', true)->first();
         $request->validate([
-            'school_year_id' => 'required',
             'name' => 'required|max:255'
         ], [
             'name.required' => 'Nama kelas harus diisi!',
@@ -34,7 +34,7 @@ class ClassroomController extends Controller
         ]);
 
         $classrooms = new Classroom;
-        $classrooms->school_year_id = $request->school_year_id;
+        $classrooms->school_year_id = $schoolYears->id;
         $classrooms->name = $request->name;
         $classrooms->save();
 
