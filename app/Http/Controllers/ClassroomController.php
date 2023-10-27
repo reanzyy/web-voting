@@ -101,6 +101,6 @@ class ClassroomController extends Controller
 
         $classroom->delete();
 
-        return redirect()->back()->withSuccess('Kelas berhasil ditambahkan!');
+        return redirect()->back()->withSuccess('Kelas berhasil dihapus!');
     }
 }
