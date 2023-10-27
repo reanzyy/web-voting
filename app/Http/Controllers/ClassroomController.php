@@ -6,6 +6,7 @@ use App\Models\Classroom;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ClassroomController extends Controller
 {
@@ -29,7 +30,13 @@ class ClassroomController extends Controller
         $schoolYears = SchoolYear::where('is_active', true)->first();
 
         $rules = [
-            'name' => 'required|max:255|unique:classrooms,name'
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('classrooms', 'name')->where(function ($query) use ($schoolYears) {
+                    return $query->where('school_year_id', $schoolYears->id);
+                }),
+            ]
         ];
 
         $messages = [

@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Vote;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
@@ -47,7 +48,10 @@ class StudentController extends Controller
 
         $request->validate(
             [
-                'identity' => 'required|max:255|unique:students,identity',
+                'identity' => 'required|max:255',
+                Rule::unique('students', 'identity')->where(function ($query) use ($classroom) {
+                    return $query->where('identity', $classroom->id);
+                }),
                 'name' => 'required|max:255',
                 'gender' => 'required|in:Laki-laki,Perempuan'
             ],

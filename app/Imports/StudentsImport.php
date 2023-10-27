@@ -24,7 +24,9 @@ class StudentsImport implements ToCollection, WithHeadingRow
         try {
             DB::beginTransaction();
             foreach ($rows as $row) {
-                $existStudent = Student::where('identity', strtolower($row['nis']))->first();
+                $existStudent = Student::where('identity', strtolower($row['nis']))
+                    ->where('classroom_id', $this->classroom->id)
+                    ->first();
 
                 if ($existStudent) {
                     throw new Exception('NIS ' . $row['nis'] . ' sudah ada');

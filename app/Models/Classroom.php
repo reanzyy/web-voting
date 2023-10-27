@@ -13,4 +13,9 @@ class Classroom extends Model
         'school_year_id',
         'name'
     ];
+
+    public function schoolYear()
+    {
+        return $this->belongsTo(SchoolYear::class, 'school_year_id', 'id');
+    }
 }
