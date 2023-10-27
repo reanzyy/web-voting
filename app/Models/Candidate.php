@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Candidate extends Model
 {
@@ -22,5 +23,9 @@ class Candidate extends Model
     public function missions()
     {
         return $this->hasMany(Mission::class);
+    }
+
+    public function votes(){
+        return $this->hasMany(Vote::class);
     }
 }

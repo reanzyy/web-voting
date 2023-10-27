@@ -7,6 +7,7 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolYearController;
@@ -24,7 +25,7 @@ use App\Http\Controllers\VisionController;
 |
 */
 
-Route::redirect('/', '/login');
+Route::get('/', [FrontendController::class,'index'])->name('home');
 
 Route::get('login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('login', [AuthController::class, 'login'])->name('login.process');
