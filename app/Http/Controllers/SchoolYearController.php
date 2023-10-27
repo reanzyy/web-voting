@@ -56,13 +56,14 @@ class SchoolYearController extends Controller
         abort_if(!$schoolYear, 404, 'Tahun Pelajaran tidak ditemukan');
 
         $rules = [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:school_years,name',
             'is_active' => 'required|boolean',
         ];
 
         $messages = [
-            'name.required' => 'Nama tahun pelajaran harus diisi!',
+            'name.required' => 'Tahun pelajaran harus diisi!',
             'name.max' => 'Maksimal 255 karakter!',
+            'name.unique' => 'Tahun pelajaran telah digunakan!',
             'is_active.required' => 'Status harus diisi!',
             'is_active.boolean' => 'Status hanya boleh diisi Aktif / Tidak Aktif!',
         ];

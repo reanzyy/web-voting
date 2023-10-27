@@ -40,8 +40,8 @@ class ClassroomController extends Controller
         ];
 
         $messages = [
-            'name.unique' => 'Kelas sudah digunakan!',
-            'name.required' => 'Kelas harus diisi!',
+            'name.unique' => 'Nama kelas sudah digunakan!',
+            'name.required' => 'Nama kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
         ];
 
@@ -61,16 +61,23 @@ class ClassroomController extends Controller
 
     public function update($id, Request $request)
     {
-        $classroom = SchoolYear::find($id);
+        $classroom = Classroom::find($id);
         abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
         $schoolYears = SchoolYear::where('is_active', true)->first();
 
         $rules = [
-            'name' => 'required|max:255'
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('classrooms', 'name')->where(function ($query) use ($schoolYears) {
+                    return $query->where('school_year_id', $schoolYears->id);
+                }),
+            ]
         ];
 
         $messages = [
-            'name.required' => 'Kelas harus diisi!',
+            'name.unique' => 'Nama kelas sudah digunakan!',
+            'name.required' => 'Nama kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
         ];
 
@@ -89,7 +96,7 @@ class ClassroomController extends Controller
 
     public function destroy($id)
     {
-        $classroom = SchoolYear::find($id);
+        $classroom = Classroom::find($id);
         abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
 
         $classroom->delete();
