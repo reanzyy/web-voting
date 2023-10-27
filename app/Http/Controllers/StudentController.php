@@ -48,12 +48,15 @@ class StudentController extends Controller
 
         $request->validate(
             [
-                'identity' => 'required|max:255',
-                Rule::unique('students', 'identity')->where(function ($query) use ($classroom) {
-                    return $query->where('identity', $classroom->id);
-                }),
+                'identity' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('students', 'identity')->where(function ($query) use ($classroom) {
+                        return $query->where('classroom_id', $classroom->id);
+                    }),
+                ],
                 'name' => 'required|max:255',
-                'gender' => 'required|in:Laki-laki,Perempuan'
+                'gender' => 'required|in:laki-laki, perempuan'
             ],
             [
                 'identity.required' => 'NIS harus diisi!',
@@ -62,7 +65,7 @@ class StudentController extends Controller
                 'name.required' => 'Nama harus diisi!',
                 'name.max' => 'Maksimal 255 karakter!',
                 'gender.required' => 'Jenis kelamin harus diisi!',
-                'gender.in' => 'Jenis kelamin harus berisi Laki-laki, Perempuan!',
+                'gender.in' => 'Jenis kelamin harus berisi laki-laki, perempuan!',
             ]
         );
 
@@ -100,17 +103,26 @@ class StudentController extends Controller
 
         $request->validate(
             [
-                'identity' => 'required|max:255',
+                'identity' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('students', 'identity')
+                        ->where(function ($query) use ($classroom) {
+                            return $query->where('classroom_id', $classroom->id);
+                        })
+                        ->ignore($student->id),
+                ],
                 'name' => 'required|max:255',
-                'gender' => 'required|in:Laki-laki,Perempuan'
+                'gender' => 'required|in:laki-laki, perempuan'
             ],
             [
                 'identity.required' => 'NIS harus diisi!',
                 'identity.max' => 'Maksimal 255 karakter!',
+                'identity.unique' => 'NIS sudah digunakan!',
                 'name.required' => 'Nama harus diisi!',
                 'name.max' => 'Maksimal 255 karakter!',
                 'gender.required' => 'Jenis kelamin harus diisi!',
-                'gender.in' => 'Jenis kelamin harus berisi Laki-laki, Perempuan!',
+                'gender.in' => 'Jenis kelamin harus berisi laki-laki, perempuan!',
             ]
         );
 
