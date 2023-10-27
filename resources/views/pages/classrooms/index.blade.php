@@ -12,10 +12,23 @@
                     <div class="breadcrumb-item"><a href="{{ route('classrooms.index') }}">Kelas</a></div>
                     <div class="breadcrumb-item">Daftar Kelas</div>
                 </div>
-            </div>  
+            </div>
 
             <x-alert />
 
+            @if ($errors->classroomErrors->any())
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        <strong>Terjadi kesalahan! </strong>
+                        @foreach ($errors->classroomErrors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClassroomController extends Controller
 {
@@ -26,54 +27,66 @@ class ClassroomController extends Controller
     public function store(Request $request)
     {
         $schoolYears = SchoolYear::where('is_active', true)->first();
-        $request->validate([
+
+        $rules = [
             'name' => 'required|max:255|unique:classrooms,name'
-        ], [
-            'name.required' => 'Nama kelas harus diisi!',
+        ];
+
+        $messages = [
+            'name.unique' => 'Kelas sudah digunakan!',
+            'name.required' => 'Kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
-        ]);
+        ];
 
-        $classroom = new Classroom;
-        $classroom->school_year_id = $schoolYears->id;
-        $classroom->name = $request->name;
-        $classroom->save();
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil ditambahkan!');
+        if ($validator->fails()) {
+            return redirect()->route('classrooms.index')->withErrors($validator, 'classroomErrors')->withInput();
+        } else {
+            $classrooms = new Classroom;
+            $classrooms->school_year_id = $schoolYears->id;
+            $classrooms->name = $request->name;
+            $classrooms->save();
+
+            return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil ditambahkan!');
+        }
     }
 
     public function update($id, Request $request)
     {
-        $classroom = Classroom::find($id);
+        $classroom = SchoolYear::find($id);
+        abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
         $schoolYears = SchoolYear::where('is_active', true)->first();
 
-        if (!$classroom) {
-            abort(404);
-        }
-
-        $request->validate([
+        $rules = [
             'name' => 'required|max:255'
-        ], [
-            'name.required' => 'Nama kelas harus diisi!',
+        ];
+
+        $messages = [
+            'name.required' => 'Kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
-        ]);
+        ];
 
-        $classroom->school_year_id = $schoolYears->id;
-        $classroom->name = $request->name;
-        $classroom->save();
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil diubah!');
+        if ($validator->fails()) {
+            return redirect()->route('classrooms.index')->withErrors($validator, 'classroomErrors')->withInput();
+        } else {
+            $classroom->school_year_id = $schoolYears->id;
+            $classroom->name = $request->name;
+            $classroom->save();
+
+            return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil diedit!');
+        }
     }
 
     public function destroy($id)
     {
-        $classroom = Classroom::find($id);
-
-        if (!$classroom) {
-            abort(404);
-        }
+        $classroom = SchoolYear::find($id);
+        abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
 
         $classroom->delete();
 
-        return redirect()->back()->withSuccess('Kelas berhasil dihapus!');
+        return redirect()->back()->withSuccess('Kelas berhasil ditambahkan!');
     }
 }

@@ -16,6 +16,19 @@
 
             <x-alert />
 
+            @if ($errors->schoolYearErrors->any())
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        <strong>Terjadi kesalahan! </strong>
+                        @foreach ($errors->schoolYearErrors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
