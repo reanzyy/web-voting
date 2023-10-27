@@ -12,7 +12,7 @@
                     <div class="breadcrumb-item"><a href="{{ route('classrooms.index') }}">Kelas</a></div>
                     <div class="breadcrumb-item">Daftar Kelas</div>
                 </div>
-            </div>
+            </div>  
 
             <x-alert />
 
@@ -23,16 +23,18 @@
                             <button class="btn btn-primary" id="AddClassroom"><i class="fa fa-plus"></i> Tambah Kelas
                                 Baru</button>
                         </div>
-                        <div class="pt-4 pl-4" style="float: left; display: flex; gap: 5px; margin-bottom: 30px;">
-                            <select name="year" class="form-control">
-                                @foreach ($schoolYears as $year)
-                                    <option value="{{ $year->id }}"
-                                        {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
-                                        {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <button type="submit" id="btn-filter" class="btn btn-primary">Filter</button>
+                        <div class="pt-4 pl-4" style="float: left; margin-bottom: 30px;">
+                            <div class="d-flex" style="gap: 5px">
+                                <select name="year" class="form-control">
+                                    @foreach ($schoolYears as $year)
+                                        <option value="{{ $year->id }}"
+                                            {{ request('year', $defaultYearId) == $year->id ? 'selected' : '' }}>
+                                            {{ $year->name }} {{ $year->is_active ? '' : '(Non-Aktif)' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" id="btn-filter" class="btn btn-primary">Filter</button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -120,7 +122,6 @@
         $('.EditClassroom').click(function() {
             $('#editClassroomModal').remove();
             var classroomId = $(this).data('classroom-id');
-            alert(classroomId)
             var classroomName = $(this).data('classroom-name');
 
             var modal = `

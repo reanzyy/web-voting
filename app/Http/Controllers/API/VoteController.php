@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\Student;
 use App\Models\Vote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VoteController extends Controller
@@ -27,6 +29,17 @@ class VoteController extends Controller
 
         $student = Student::where('identity', $request->student_id)
             ->first();
+
+
+        $setting = Setting::first();
+
+        $now = Carbon::now();
+        $startDate = Carbon::parse($setting->start_date);
+        $endDate = Carbon::parse($setting->end_date);
+
+        if (!$now->between($startDate, $endDate)) {
+            return $this->sendError('voting diluar jadwal!', 400);
+        }
 
         if ($student->hasVoted()) {
             return $this->sendError('siswa sudah melakukan voting', 400);

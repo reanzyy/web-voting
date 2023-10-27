@@ -33,10 +33,10 @@ class ClassroomController extends Controller
             'name.max' => 'Maksimal 255 karakter!'
         ]);
 
-        $classrooms = new Classroom;
-        $classrooms->school_year_id = $schoolYears->id;
-        $classrooms->name = $request->name;
-        $classrooms->save();
+        $classroom = new Classroom;
+        $classroom->school_year_id = $schoolYears->id;
+        $classroom->name = $request->name;
+        $classroom->save();
 
         return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil ditambahkan!');
     }
@@ -44,24 +44,24 @@ class ClassroomController extends Controller
     public function update($id, Request $request)
     {
         $classroom = Classroom::find($id);
+        $schoolYears = SchoolYear::where('is_active', true)->first();
 
         if (!$classroom) {
             abort(404);
         }
 
         $request->validate([
-            'school_year_id' => 'required',
             'name' => 'required|max:255'
         ], [
             'name.required' => 'Nama kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
         ]);
 
-        $classroom->school_year_id = $request->school_year_id;
+        $classroom->school_year_id = $schoolYears->id;
         $classroom->name = $request->name;
         $classroom->save();
 
-        return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil ditambahkan!');
+        return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil diubah!');
     }
 
     public function destroy($id)
@@ -74,6 +74,6 @@ class ClassroomController extends Controller
 
         $classroom->delete();
 
-        return redirect()->back()->withSuccess('Kelas berhasil ditambahkan!');
+        return redirect()->back()->withSuccess('Kelas berhasil dihapus!');
     }
 }

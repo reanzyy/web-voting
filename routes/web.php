@@ -10,7 +10,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SchoolYearController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VisionController;
 
@@ -25,7 +27,7 @@ use App\Http\Controllers\VisionController;
 |
 */
 
-Route::get('/', [FrontendController::class,'index'])->name('home');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('login', [AuthController::class, 'login'])->name('login.process');
@@ -48,6 +50,12 @@ Route::middleware([Authenticate::class])->group(function () {
     });
 
     Route::middleware('userAccess:admin')->group(function () {
+
+        Route::controller(ReportController::class)->prefix('reports')->name('reports.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/pdf', 'report')->name('report');
+        });
+
         Route::controller(ClassroomController::class)->prefix('classrooms')->name('classrooms.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
@@ -94,6 +102,11 @@ Route::middleware([Authenticate::class])->group(function () {
             Route::post('/', 'store')->name('store');
             Route::put('/{id}/school-years', 'update')->name('update');
             Route::delete('/{id}/school-years', 'destroy')->name('destroy');
+        });
+
+        Route::controller(SettingController::class)->prefix('settings')->name('settings.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/', 'update')->name('update');
         });
     });
 });

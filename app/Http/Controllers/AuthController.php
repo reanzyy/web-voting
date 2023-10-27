@@ -36,7 +36,11 @@ class AuthController extends Controller
 
         if (Hash::check($request->password, $user->password)) {
             Auth::loginUsingId($user->id);
-            return redirect()->route('dashboard')->withSuccess("Selamat Datang {$user->name}");
+            if ($user->role == 'admin') {
+                return redirect()->route('dashboard')->withSuccess("Selamat Datang {$user->name}");
+            } else {
+                return redirect()->route('users.index')->withSuccess("Selamat Datang {$user->name}");
+            }
         }
 
         return redirect('login')->with('error', 'Username dan password tidak sesuai!');

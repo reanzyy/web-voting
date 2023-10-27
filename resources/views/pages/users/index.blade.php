@@ -8,7 +8,6 @@
             <div class="section-header">
                 <h1>Pengguna</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
                     <div class="breadcrumb-item">Daftar Pengguna</div>
                 </div>
@@ -33,7 +32,7 @@
                                             <th>Nama</th>
                                             <th>Username</th>
                                             <th>Password</th>
-                                            <th>role</th>
+                                            <th>Role</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>

@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vote extends Model
+class Setting extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
-        'candidate_id'
+        'school_name',
+        'headmaster_name',
+        'deputy_headmaster_name',
+        'start_date',
+        'end_date',
     ];
-
-    public function candidate()
-    {
-        return $this->belongsTo(Candidate::class);
-    }
 }

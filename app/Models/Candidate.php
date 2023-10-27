@@ -11,8 +11,11 @@ class Candidate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
-        'candidate_id'
+        'sequence',
+        'chairman',
+        'deputy_chairman',
+        'photo_chairman',
+        'photo_deputy_chairman'
     ];
 
     public function visions()
@@ -25,7 +28,8 @@ class Candidate extends Model
         return $this->hasMany(Mission::class);
     }
 
-    public function votes(){
+    public function votes()
+    {
         return $this->hasMany(Vote::class);
     }
 }
