@@ -2,6 +2,9 @@
 
 namespace App\Libraries;
 
+use App\Models\Classroom;
+use App\Models\SchoolYear;
+use App\Models\Setting;
 use App\Models\Vote;
 use Carbon\Carbon;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -158,72 +161,106 @@ class Report extends Fpdf
 
   function Report($data)
   {
+    $setting = Setting::first();
+    $school_year = SchoolYear::where('is_active', true)
+      ->first();
+    $classrooms = Classroom::where('school_year_id', $school_year->id)
+      ->get();
+    $totalVotes = Vote::distinct('student_id')
+      ->count();
+
+    $totalStudents = 0;
+    foreach ($classrooms as $classroom) {
+      $totalStudents += $classroom->students()->count();
+    }
+
+    $invalidVotes = $totalStudents - $totalVotes;
+
     $this->AddPage();
-    $this->SetFont('Arial', 'B', 14);
-    $this->Cell(0, 10, 'BERITA ACARA PEMILIHAN KETUA DAN WAKIL KETUA OSIS', '', '', 'C');
+    $this->SetFont('Times', 'B', 16);
+    $this->Cell(0, 10, 'BERITA ACARA', '', 1, 'C');
+    $this->SetFont('Times', 'B', 14);
+    $this->Cell(0, 6, 'PEMILIHAN KETUA DAN WAKIL KETUA OSIS', '', 1, 'C');
+    $this->Cell(0, 6, strtoupper($setting->school_name), '', 1, 'C');
+    $this->Cell(0, 6, 'MASA BAKTI ' . $school_year->name, '', 1, 'C');
 
     $date = Carbon::now()->locale('id');
     $date->settings(['formatFunction' => 'translatedFormat']);
 
     $candidate = $data->first();
 
-    $pembuka = '      Pada hari ini, tanggal ' . $date->format('d F Y') . ', di  [Nama sekolah]  telah  dilaksanakan  pemilihan  ketua  OSIS  untuk masa bakti [tahun ajaran] dengan hasil perolehan suara sebagai berikut.';
+    $pembuka = '      Pada hari ini, tanggal ' . $date->format('d F Y') . ', telah dilakukan Pemilihan Ketua dan Wakil ketua Organisasi Siswa Intra Sekolah (OSIS) ' . strtoupper($setting->school_name) . ' Masa Bakti ' . $school_year->name . ' dengan jumlah Hak Pemilih sebanyak ' . $totalStudents . ', jumlah daftar pemilih sebanyak ' . $totalVotes . ' dengan rincian perolehan suara sebagai berikut:';
 
     $bawahtable = '     Hasil ini disusun berdasarkan perolehan suara yang sah dan telah diumumkan secara langsung kepada peserta pemilihan dan seluruh warga sekolah. Panitia pemilihan telah memastikan bahwa pemilihan berlangsung dengan adil, terbuka, dan tanpa intervensi dari pihak mana pun.';
 
-    $selamat = '     Kami ingin mengucapkan selamat kepada ' . $candidate->candidate_chairman . ' yang telah terpilih sebagai Ketua OSIS SMA/SMK [Nama Sekolah] periode [Tahun]. Semoga [Dia/Anda] dapat menjalankan tugas ini dengan baik, penuh dedikasi, dan menjadi teladan bagi seluruh siswa sekolah';
+    $selamat = '     Dengan demikian Calon dengan No urut ' . $candidate->candidate_sequence . ' atas nama ' . $candidate->candidate_chairman . ' & ' . $candidate->candidate_deputy_chairman . ' dinyatakan terpilih dan berhak menjadi Ketua dan Wakil Ketua OSIS ' . strtoupper($setting->school_name) . ' Masa Bakti ' . $school_year->name . '.';
 
-    $penutup = '     Demikian surat berita acara ini kami sampaikan untuk menjadi bahan perhatian Bapak/Ibu Kepala Sekolah. Apabila ada hal yang perlu diperjelas atau ditambahkan, kami siap untuk memberikan penjelasan lebih lanjut.
-
-    Atas perhatian dan kerjasama Bapak/Ibu Kepala Sekolah, kami mengucapkan terima kasih.';
-
-    $this->Ln(15);
-    $this->SetFont('Arial', '', 12);
-    $this->Write(5, $pembuka);
     $this->Ln(10);
+    $this->SetFont('Times', '', 12);
+    $this->MultiCell(0, 6, $pembuka, 0, 'J');
+    $this->Ln(5);
 
-    $this->SetFont('Arial', 'B', 12);
-    $this->SetWidths([10, 100, 80]);
-    $this->height = 6;
-    $this->SetAligns(['C', 'C', 'C']);
-    $this->Row([
-      'No',
-      'Nama Calon',
-      'Jumlah Suara',
-    ]);
+    $this->SetFont('Times', 'B', 13);
 
-    $this->SetFont('Arial', '', 12);
-    $this->SetAligns(['L', 'L', 'C']);
+    $this->Cell(15, 12, 'No', 1, '', 'C');
+    $this->Cell(80, 12, 'Nama Pasangan Calon', 1, '', 'C');
+    $this->Cell(40, 12, 'Jabatan', 1, '', 'C');
+    $this->Cell(0, 12, 'Jumlah Perolehan Suara', 1, 1, 'C');
+
+    $this->SetFont('Times', '', 12);
+
     foreach ($data as $index => $candidate) {
 
-      $this->Row([
-        $index + 1,
-        $candidate->candidate_chairman . ' & ' . $candidate->candidate_deputy_chairman,
-        $candidate->vote_count
-      ]);
+      $this->Cell(15, 12, $index + 1, 1, '', 'C');
+      $this->Cell(80, 6, strtoupper($candidate->candidate_chairman), 1, '', 'L');
+      $this->Cell(40, 6, 'Ketua Osis', 1, '', 'C');
+      $this->Cell(0, 12, $candidate->vote_count, 1, '', 'C');
+      $this->Cell(0, 6, '', '', 1, 'C');
+      $this->Cell(15, 6, '', '', 0, 'C');
+      $this->Cell(80, 6, strtoupper($candidate->candidate_deputy_chairman), 1, '', 'L');
+      $this->Cell(40, 6, 'Wakil Ketua Osis', 1, 1, 'C');
     }
 
-    $this->Ln();
-    $this->Write(5, $bawahtable);
-    $this->Ln();
-    $this->Ln();
-    $this->Write(5, $selamat);
-    $this->Ln();
-    $this->Ln();
-    $this->Write(5, $penutup);
+    $this->Cell(95, 10, 'Jumlah hak pilih yang tidak memilih / tidak sah', 1, '', 'C');
+    $this->Cell(40, 10, '', 1, '', 'C');
+    $this->Cell(0, 10, $invalidVotes, 1, 1, 'C');
 
-    $this->SetY(-65);
-    $this->SetX(10 * 12);
+    $this->Ln(5);
+    $this->MultiCell(0, 6, $bawahtable, 0, 'J');
+    $this->Ln(5);
+    $this->MultiCell(0, 6, $selamat, 0, 'J');
+    $this->Ln(5);
+
+    $this->SetY(-95);
+    $this->Cell(0, 5, 'Cirebon, ' . $date->format('d F Y'), 0, 1, 'C');
+    $this->SetY(-80);
+    $this->SetX(10 * 2);
     $this->Cell(60, 5, 'Kepala Sekolah', 0, 1, 'C');
-    $this->SetX(10 * 12);
+    $this->SetX(10 * 2);
     $this->Cell(60, 5, 'Cirebon, ' . $date->format('d F Y'), 0, 1, 'C');
     $this->Ln();
     $this->Ln();
     $this->Ln();
     $this->Ln();
-    $this->SetX(10 * 12);
+    $this->Ln();
+    $this->SetX(10 * 2);
     $this->Cell(60, 5, '', 0, 1, 'C');
-    $this->SetX(10 * 12);
-    $this->Cell(60, 5, '', 'T', 1, 'C');
+    $this->SetX(10 * 2);
+    $this->Cell(60, 5, '.................................................', '', 1, 'C');
+
+    $this->SetY(-80);
+    $this->SetX(10 * 13);
+    $this->Cell(60, 5, 'Mengetahui,', 0, 1, 'C');
+    $this->SetX(10 * 13);
+    $this->Cell(60, 5, 'Kepala ' . strtoupper($setting->school_name), 0, 1, 'C');
+    $this->Ln();
+    $this->Ln();
+    $this->Ln();
+    $this->Ln();
+    $this->Ln();
+    $this->SetX(10 * 13);
+    $this->Cell(60, 5, '', 0, 1, 'C');
+    $this->SetX(10 * 13);
+    $this->Cell(60, 5, '.................................................', '', 1, 'C');
   }
 }

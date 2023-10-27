@@ -40,11 +40,11 @@ class ReportController extends Controller
         $defaultYearId = SchoolYear::where('is_active', true)->pluck('id');
 
         $candidates = DB::table('candidates as c')
-            ->select('c.id as candidate_id', 'c.chairman as candidate_chairman', 'c.deputy_chairman as candidate_deputy_chairman', 'c.school_year_id as school_year')
+            ->select('c.id as candidate_id', 'c.sequence as candidate_sequence', 'c.chairman as candidate_chairman', 'c.deputy_chairman as candidate_deputy_chairman', 'c.school_year_id as school_year')
             ->selectRaw('COUNT(DISTINCT v.id) as vote_count')
             ->leftJoin('votes as v', 'c.id', '=', 'v.candidate_id')
             ->where('c.school_year_id', $defaultYearId)
-            ->groupBy('c.id', 'c.chairman', 'c.deputy_chairman', 'c.school_year_id')
+            ->groupBy('c.id', 'c.sequence', 'c.chairman', 'c.deputy_chairman', 'c.school_year_id')
             ->orderByDesc('vote_count')
             ->get();
 
