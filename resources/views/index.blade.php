@@ -14,6 +14,9 @@
     <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -27,10 +30,11 @@
     <div>
         <div class="d-flex justify-content-center mt-5" style="gap: 5%">
             @foreach ($candidates as $candidate)
-                <div class="text-center">
+                <div class="text-center card pt-2 px-4"
+                    style="background-color: {{ $backgroundColor[$loop->index] }}; border:2px solid {{ $borderColor[$loop->index] }}">
                     <h5 style="font-weight: bold">Pasangan Calon {{ $candidate->sequence }}</h5>
-                    <h1>{{ $candidate->votes->count() }}</h1>
-                    <p>{{ $candidate->chairman }} <br>{{ $candidate->deputy_chairman }}</p>
+                    <h1 style="font-family: 'Anton', sans-serif;">{{ $candidate->votes->count() }}</h1>
+                    <p style="font-weight: bold">{{ $candidate->chairman }} <br>{{ $candidate->deputy_chairman }}</p>
                 </div>
             @endforeach
         </div>
