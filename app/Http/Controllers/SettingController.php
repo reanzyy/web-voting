@@ -44,13 +44,11 @@ class SettingController extends Controller
         ];
 
         if ($setting) {
-            Setting::where('id', 1)->update($schoolData);
+            Setting::first()->update($schoolData);
         } else {
             Setting::create($schoolData);
         }
 
-        $action = $setting->wasRecentlyCreated ? 'dibuat' : 'diubah';
-
-        return redirect()->back()->withSuccess("Pengaturan berhasil $action!");
+        return redirect()->back()->withSuccess("Pengaturan berhasil diubah!");
     }
 }
