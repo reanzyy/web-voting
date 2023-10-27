@@ -25,7 +25,7 @@ class FrontendController extends Controller
             $count = Vote::where('candidate_id', $data->id)
                 ->count();
 
-            $chartData['labels'][] = $data->chairman . " - "  . $data->deputy_chairman;
+            $chartData['labels'][] = "Pasangan " . $data->sequence;
             $chartData['counts'][] = $count;
         }
         return view('index', [

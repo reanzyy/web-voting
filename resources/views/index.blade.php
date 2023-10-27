@@ -34,7 +34,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="container-fluid mt-4" style="width:70%">
+        <div class="container-fluid mt-4" style="width:80%">
             <canvas id="votingChart"></canvas>
         </div>
     </div>
@@ -70,6 +70,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
+        setTimeout(function() {
+            location.reload();
+        }, 30000);
         var data = @json($chartData);
 
         var ctx = document.getElementById('votingChart').getContext('2d');
