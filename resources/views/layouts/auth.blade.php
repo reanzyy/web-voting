@@ -12,6 +12,8 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="shortcut icon" href="{{ asset('/img/logo/favicon.png') }}" type="image/x-icon">
+
     @stack('style')
 
     <!-- Template CSS -->
@@ -40,7 +42,7 @@
                     <div
                         class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <!-- Footer -->
-                        {{-- @include('components.auth-header') --}}
+                        @include('components.auth-header')
 
                         <!-- Content -->
                         @yield('main')

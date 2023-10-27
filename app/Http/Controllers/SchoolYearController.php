@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SchoolYearController extends Controller
@@ -56,7 +55,7 @@ class SchoolYearController extends Controller
         abort_if(!$schoolYear, 404, 'Tahun Pelajaran tidak ditemukan');
 
         $rules = [
-            'name' => 'required|max:255|unique:school_years,name',
+            'name' => 'required|max:255|unique:school_years,name,' . $schoolYear->id,
             'is_active' => 'required|boolean',
         ];
 
@@ -83,7 +82,7 @@ class SchoolYearController extends Controller
         $schoolYear->is_active = $request->is_active;
         $schoolYear->save();
 
-        return redirect()->route('school-years.index')->withSuccess('Tahun Pelajaran berhasil diedit.');
+        return redirect()->route('school-years.index')->withSuccess('Tahun Pelajaran berhasil diubah.');
     }
 
 

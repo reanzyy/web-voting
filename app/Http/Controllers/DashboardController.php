@@ -7,15 +7,12 @@ use App\Models\Classroom;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Vote;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // $selectedYear = $request->input('selected_year', Carbon::now()->format('Y'));
-
         $schoolYears = SchoolYear::all();
         $defaultYearId = SchoolYear::where('is_active', true)->value('id');
         $candidatesQuery = Candidate::query();

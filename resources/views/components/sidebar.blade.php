@@ -1,16 +1,17 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('dashboard') }}">E-Voting</a>
+            <a href="{{ route('dashboard') }}"><img src="{{ asset('/img/logo/favicon.png') }}" width="90"></a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('dashboard') }}">Ev</a>
+            <a href="{{ route('dashboard') }}"><img src="{{ asset('/img/logo/favicon.png') }}" width="50"></a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Menu</li>
             @if (Auth::user()->role == 'superadmin')
                 <li class="{{ Request::is('users*') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-users"></i> <span>Pengguna</span></a>
+                    <a class="nav-link" href="{{ url('users') }}"><i class="fas fa-users"></i>
+                        <span>Pengguna</span></a>
                 </li>
             @else
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">

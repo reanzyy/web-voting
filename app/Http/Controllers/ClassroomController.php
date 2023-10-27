@@ -62,7 +62,11 @@ class ClassroomController extends Controller
     public function update($id, Request $request)
     {
         $classroom = Classroom::find($id);
-        abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
+
+        if (!$classroom) {
+            abort(404);
+        }
+
         $schoolYears = SchoolYear::where('is_active', true)->first();
 
         $rules = [
@@ -71,7 +75,7 @@ class ClassroomController extends Controller
                 'max:255',
                 Rule::unique('classrooms', 'name')->where(function ($query) use ($schoolYears) {
                     return $query->where('school_year_id', $schoolYears->id);
-                }),
+                })->ignore($classroom->id),
             ]
         ];
 
@@ -90,14 +94,17 @@ class ClassroomController extends Controller
             $classroom->name = $request->name;
             $classroom->save();
 
-            return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil diedit!');
+            return redirect()->route('classrooms.index')->withSuccess('Kelas berhasil diubah!');
         }
     }
 
     public function destroy($id)
     {
         $classroom = Classroom::find($id);
-        abort_if(!$classroom, 404, 'Kelas tidak ditemukan');
+
+        if (!$classroom) {
+            abort(404);
+        }
 
         $classroom->delete();
 

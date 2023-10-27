@@ -64,8 +64,8 @@
                                         <select name="gender" class="form-control @error('gender') is-invalid @enderror">
                                             <option value="{{ $student->gender }}">{{ $student->gender }}</option>
                                             <option disabled>-------------------</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                            <option value="laki-laki">Laki-laki</option>
+                                            <option value="perempuan">Perempuan</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('gender')

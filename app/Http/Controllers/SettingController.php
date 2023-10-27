@@ -19,6 +19,10 @@ class SettingController extends Controller
     {
         $setting = Setting::find(1);
 
+        if (!$setting) {
+            abort(404);
+        }
+
         $data = $request->validate([
             'school_name' => 'required|max:255',
             'headmaster_name' => 'required|max:255',

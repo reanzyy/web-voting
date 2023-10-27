@@ -56,7 +56,7 @@ class StudentController extends Controller
                     }),
                 ],
                 'name' => 'required|max:255',
-                'gender' => 'required|in:laki-laki, perempuan'
+                'gender' => 'required|in:laki-laki,perempuan'
             ],
             [
                 'identity.required' => 'NIS harus diisi!',
@@ -113,7 +113,7 @@ class StudentController extends Controller
                         ->ignore($student->id),
                 ],
                 'name' => 'required|max:255',
-                'gender' => 'required|in:laki-laki, perempuan'
+                'gender' => 'required|in:laki-laki,perempuan'
             ],
             [
                 'identity.required' => 'NIS harus diisi!',
@@ -151,6 +151,10 @@ class StudentController extends Controller
     public function import(Request $request, $classroomId)
     {
         $classroom = Classroom::find($classroomId);
+
+        if (!$classroom) {
+            abort(404);
+        }
 
         $request->validate([
             'import_file' => 'required|mimes:xls,xlsx'

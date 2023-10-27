@@ -235,9 +235,9 @@ class Report extends Fpdf
     $this->Cell(0, 5, 'Cirebon, ' . $date->format('d F Y'), 0, 1, 'C');
     $this->SetY(-80);
     $this->SetX(10 * 2);
-    $this->Cell(60, 5, 'Kepala Sekolah', 0, 1, 'C');
+    $this->Cell(60, 5, 'Mengetahui,', 0, 1, 'C');
     $this->SetX(10 * 2);
-    $this->Cell(60, 5, 'Cirebon, ' . $date->format('d F Y'), 0, 1, 'C');
+    $this->Cell(60, 5, 'Kepala ' . strtoupper($setting->school_name), 0, 1, 'C');
     $this->Ln();
     $this->Ln();
     $this->Ln();
@@ -252,7 +252,7 @@ class Report extends Fpdf
     $this->SetX(10 * 13);
     $this->Cell(60, 5, 'Mengetahui,', 0, 1, 'C');
     $this->SetX(10 * 13);
-    $this->Cell(60, 5, 'Kepala ' . strtoupper($setting->school_name), 0, 1, 'C');
+    $this->Cell(60, 5, 'Wakil Kepala ' . strtoupper($setting->school_name), 0, 1, 'C');
     $this->Ln();
     $this->Ln();
     $this->Ln();

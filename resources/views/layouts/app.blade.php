@@ -13,6 +13,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+    <link rel="shortcut icon" href="{{ asset('/img/logo/favicon.png') }}" type="image/x-icon">
+
     @stack('style')
 
     <!-- Template CSS -->

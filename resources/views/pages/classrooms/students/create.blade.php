@@ -64,8 +64,8 @@
                                     <div class="col-lg-9">
                                         <select name="gender" class="form-control @error('gender') is-invalid @enderror">
                                             <option selected disabled>Pilih jenis kelamin</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                            <option value="laki-laki">Laki-laki</option>
+                                            <option value="perempuan">Perempuan</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             @error('gender')
