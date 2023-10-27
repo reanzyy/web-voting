@@ -27,7 +27,7 @@ class ClassroomController extends Controller
     {
         $schoolYears = SchoolYear::where('is_active', true)->first();
         $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255|unique:classrooms,name'
         ], [
             'name.required' => 'Nama kelas harus diisi!',
             'name.max' => 'Maksimal 255 karakter!'
