@@ -25,6 +25,7 @@ class StudentsImport implements ToCollection, WithHeadingRow
             DB::beginTransaction();
             foreach ($rows as $row) {
 
+                $row = strtolower($row);
                 $existStudent = Student::where('identity', $row['nis'])->first();
 
                 if ($existStudent) {
