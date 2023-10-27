@@ -30,11 +30,11 @@ class StudentsImport implements ToCollection, WithHeadingRow
                     throw new Exception('NIS ' . $row['nis'] . ' sudah ada');
                 }
 
-                if (strtolower($row['nis']) !== null && strtolower($row['nama']) !== null && strtolower($row['jenis_kelamin']) !== null) {
+                if (strtolower($row['nis']) !== null && $row['nama'] !== null && strtolower($row['jenis_kelamin']) !== null) {
                     Student::create([
                         'classroom_id' => $this->classroom->id,
                         'identity' => strtolower($row['nis']),
-                        'name' => strtolower($row['nama']),
+                        'name' => $row['nama'],
                         'gender' => strtolower($row['jenis_kelamin']),
                         'status' => 'Belum Memilih',
                     ]);
