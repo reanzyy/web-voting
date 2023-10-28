@@ -85,7 +85,7 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: data.labels,
+                labels: data.hoverLabels,
                 datasets: [{
                     label: 'Jumlah Suara',
                     data: data.counts,
@@ -127,6 +127,11 @@
                         grid: {
                             display: false,
                         },
+                        ticks: {
+                            callback: function(value, index) {
+                                return data.labels[index];
+                            }
+                        }
                     },
                     y: {
                         display: true,
