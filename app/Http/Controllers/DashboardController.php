@@ -40,12 +40,10 @@ class DashboardController extends Controller
             'counts' => [],
         ];
 
-
         foreach ($candidates as $data) {
-            $count = Vote::where('candidate_id', $data->id)
-                ->count();
-
-            $chartData['labels'][] = $data->chairman . " - "  . $data->deputy_chairman;
+            $count = Vote::where('candidate_id', $data->id)->count();
+            $chartData['labels'][] = "Paslon " . $data->sequence;
+            $chartData['hoverLabels'][] = $data->chairman . " - " . $data->deputy_chairman;
             $chartData['counts'][] = $count;
         }
 

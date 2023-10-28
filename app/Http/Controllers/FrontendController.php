@@ -26,6 +26,7 @@ class FrontendController extends Controller
                 ->count();
 
             $chartData['labels'][] = "Pasangan " . $data->sequence;
+            $chartData['hoverLabels'][] = $data->chairman . " - " . $data->deputy_chairman;
             $chartData['counts'][] = $count;
         }
 
