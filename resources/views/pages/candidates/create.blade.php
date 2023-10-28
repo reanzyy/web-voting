@@ -68,8 +68,7 @@
                                     <div class="col-lg-9">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg" name="photo_chairman"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
+                                                class="form-control">
                                         </div>
                                         <div class="form-text text-muted">Ukuran foto maksimal 2MB
                                         </div>
@@ -81,8 +80,7 @@
                                     <div class="col-lg-9">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg" name="photo_deputy_chairman"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
+                                                class="form-control">
                                         </div>
                                         <div class="form-text text-muted">Ukuran foto maksimal 2MB
                                         </div>

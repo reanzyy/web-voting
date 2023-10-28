@@ -67,6 +67,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group row mb-3">
+                                        <label class="col-lg-3 col-form-label">Ketua Pelaksana Pemilihan <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <input type="text" name="chief_executive_name"
+                                                class="form-control @error('chief_executive_name') is-invalid @enderror"
+                                                value="{{ old('chief_executive_name', $setting->chief_executive_name ?? '') }}">
+                                            <div class="invalid-feedback">
+                                                @error('chief_executive_name')
+                                                    {{ $message }}
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
                                         <label class="col-lg-3 col-form-label">Waktu Mulai Pemilihan <span
                                                 class="text-danger">*</span></label>
                                         <div class="col-lg-9">

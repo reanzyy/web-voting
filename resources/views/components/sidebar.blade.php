@@ -4,7 +4,7 @@
             <a href="{{ route('dashboard') }}"><img src="{{ asset('/img/logo/favicon.png') }}" width="90"></a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('dashboard') }}"><img src="{{ asset('/img/logo/favicon.png') }}" width="50"></a>
+            <a href="{{ route('dashboard') }}"><img src="{{ asset('/img/logo/favicon.png') }}" width="40"></a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Menu</li>

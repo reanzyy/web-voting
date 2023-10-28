@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Candidate;
-use App\Models\Mission;
+use Carbon\Carbon;
 use App\Models\Visi;
 use App\Models\Vision;
+use App\Models\Mission;
+use App\Models\Setting;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
@@ -30,7 +32,20 @@ class CandidateController extends Controller
             ];
         }
 
-        return $this->sendSuccess($data, 'successfully load candidates', 200);
+        $setting = Setting::first();
+
+        $now = Carbon::now();
+        $startDate = Carbon::parse($setting->start_date);
+        $endDate = Carbon::parse($setting->end_date);
+
+        // return $this->sendSuccess($data, 'successfully load candidates', 200);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'successfully load candidates',
+            'can_vote' => $now->between($startDate, $endDate),
+            'data' => $data
+        ], 200);
     }
 
     public function getListVision($id)

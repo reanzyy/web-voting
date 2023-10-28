@@ -13,6 +13,7 @@ class Setting extends Model
         'school_name',
         'headmaster_name',
         'deputy_headmaster_name',
+        'chief_executive_name',
         'start_date',
         'end_date',
     ];
